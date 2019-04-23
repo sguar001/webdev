@@ -11,25 +11,30 @@ document.addEventListener('DOMContentLoaded', function() {
 
 			// GENERAL UPDATE PATTERN
 			var letters = d3.select('#letters')			// select the parent div
-							.selectAll('.letter')			// select all the individual elements, even if not present
-							.data(getFrequencies(userInput)); // here we bind the array elements to the tags on the page with 'letter' class, 
+							.selectAll('.letter')			// select all the individual elements, even if not present to join data to
+							.data(getFrequencies(userInput), d => d[0]); // here we bind the array elements to the tags on the page with 'letter' class, 
+							// need to provide a key function to join based on character rather than index
 			
 			letters
-				.classed('new', false) // remove the new class
+				.classed('new', false) // remove the new class since elements in the update section already exist on the page
 			.exit()
 			.remove();
 
+			letters
+				.enter() // however if they are not present, the nodes will be created on enter, then appended to page
+				.append('div')
+					.classed('letter', true)
+					.classed('new', true)
+				.merge(letters)	// move to merge as styles should apply to both
+					.style('width', '20px')
+					.style('line-height', '20px')
+					.style('margin-right', '5px')
+					.style('height', d => d[1] * 20 + 'px')
+					.style('color', 'white')
+					.text(d => d[0]); // for the div element, set the text to be the character
 
-			.enter() // however if they are not present, the nodes will be created on enter, then appended to page
-			.append('div')
-				.classed('letter', true)
-				.style('width', '20px')
-				.style('line-height', '20px')
-				.style('margin-right', '5px')
-				.style('height', d => d[1] * 20 + 'px')
-				.style('color', 'white')
-				.text(d => d[0]); // for the div element, set the text to be the character
-
+			// display number of new characters found, based on the length of nodes that have been placed in enter selection
+			d3.select('#count').text('(New characters: ' + letters.enter().nodes().length + ")");
 			// display the word that is being analyzed
 			d3.select('#phrase').text(`Analysis of: ${userInput}`);
 			// clear the form input
@@ -38,6 +43,17 @@ document.addEventListener('DOMContentLoaded', function() {
 		}
 	});
 
+	// action to perform reset on reset button click
+	d3.select('#reset').on('click', function() {
+		d3.selectAll('.letter')
+			.remove();
+
+		d3.select('#phrase')
+			.text('');
+
+		d3.select('#count')
+			.text('');	
+	});
 });
 
 // dipslay the word that is being analyzed
