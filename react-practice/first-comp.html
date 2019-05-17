@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Component 1</title>
+	<script  src='https://unpkg.com/react@16.0.0-rc.2/umd/react.development.js'></script>
+	<script src='https://unpkg.com/react-dom@16.0.0-rc.2/umd/react-dom.development.js'></script>
+	<script src='https://unpkg.com/react-dom-factories@1.0.0/index.js'></script>
+</head>
+<body>
+	<div id='app'></div>
+	<script type="text/javascript">
+		
+		class Pet extends React.Component {
+			render() {
+				// first param: attributes, second param: what to put inside element
+				const h2 = ReactDOMFactories.h2(null, 'Moxie');
+				const img = ReactDOMFactories.img({
+					src: 'https://cdn.pixabay.com/photo/2015/11/16/14/43/cat-1045782_960_720.jpg',
+					alt:'moxie my cat'
+				});
+
+				return ReactDOMFactories.div(null, h2, img);
+			}
+
+		}
+	// specify what to render and where to render
+	ReactDOM.render(React.createElement(Pet), document.getElementById('app'));	
+
+	</script>
+</body>
+</html>

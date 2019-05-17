@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>React Demo</title>
+	<script src='https://unpkg.com/react@16.0.0-rc.2/umd/react.development.js'></script>
+	<script src='https://unpkg.com/react-dom@16.0.0-rc.2/umd/react-dom.development.js'></script>
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js'></script>
+	<script
+	  src="https://code.jquery.com/jquery-3.4.1.min.js"
+	  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+	  crossorigin="anonymous">
+    </script>		
+    <link rel="stylesheet" type="text/css" href="test1.css">
+</head>
+<body>
+	<div id='app'></div> <!-- THIS IS WHERE THE REACT COMPONENT GETS 'DRAWN'-->
+	<script type="text/babel">
+		// For now, each component is a class that extends React.Component
+
+		// Component that holds all Dashboard elements 
+		class Dashboard extends React.Component {
+			render() {
+				return (
+					<div id='dashboard'>
+						<h2 id='title'> Reddit Dashboard! 
+							<span id='title-img'>
+								<img src="https://i2.wp.com/www.allaboutlean.com/wp-content/uploads/2018/10/Reddit-Logo-NOTEXT-2.png?resize=739%2C1024&ssl=1"/> 
+							</span>
+						</h2>
+						<div id='modules'>
+							<MessageList/>
+							<SavedList/>
+							<UserHistory/>
+						</div>
+					</div>
+				)
+			}
+		}
+
+		// Componenent that holds the list of messages for a reddit user
+		class MessageList extends React.Component {
+			render() {
+				const msgs = ['Hello', 'World', '!'];
+				// NEED TO AUTHENTICATE USER USING OAUTH 
+				// const redditMessages = $.getJSON('https://www.reddit.com/api/v1/me');
+				// redditMessages.then(d => console.log(d));
+				return (
+					<div className='component' id='inbox'>
+						<h5>Messages Inbox</h5>
+						<ul>
+							{msgs.map((msg, idx) => {
+								return <li key={idx} style={{fontSize: '1.5em'}}>{msg}</li> // Evaluate JS to map array of messages to li's, and specify key and fontSize
+							})}
+						</ul>
+					</div>
+				)
+			}
+		} 
+
+		// Component that holds the saved posts for logged in reddit user
+		class SavedList extends React.Component {
+			render() {
+				const savedPosts = ['Hi there, this is cool!', 'The very best of the best!', 'Keep moving forward'];
+				return (
+					<div className='component' id='saved'>
+						<h5>Saved Posts</h5>
+						<ul>
+							{savedPosts.map((post, idx) => {
+								return <li key={idx} style={{fontSize: '1.5em'}}>{post}</li>
+							})}
+						</ul>
+					</div>
+				)
+			}
+		}
+
+		// Component that holds the users comment/post history
+		class UserHistory extends React.Component {
+			render() {
+				const comments = ['Hi there!', 'This is useless information...', 'I love reddit!!!', 'I\'ll take WWZ'];
+				return(
+					<div className='component' id='history'>
+						<h5>User History</h5>
+						<ul>
+							{comments.map((comment, idx) => {
+								return <li key={idx} style={{fontSize: '1.5em'}}>{comment}</li>
+							})}
+						</ul>
+					</div>
+				)
+			}
+		}
+
+		// Need to render the components to display on the page, on the 'app' div
+		ReactDOM.render(<Dashboard/>, document.getElementById('app'));		
+	</script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+
+/*GENERAL CSS STYLING*/
+
+#app {
+	height: 600px;
+}
+
+  #title {
+	display: flex;
+	justify-content: center;
+	align-items: flex-end;
+}
+
+#title-img img {
+	margin-left: 25px;
+	width: 50px;
+}
+
+#modules {
+	height: 600px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+ul {
+	list-style: none;
+	margin: 10px;
+	padding: 0;
+}
+
+ul li {
+	margin-top: 10px;
+}
+
+/* INVIDUAL COMPONENT STYLING */
+
+.component h5 {
+	text-align: center;
+	margin: 10px;
+}
+
+.component {
+	margin: 20px;
+	border: 2px solid black;
+}

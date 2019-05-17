@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Component 1</title>
+	<script src='https://unpkg.com/react@16.0.0-rc.2/umd/react.development.js'></script>
+	<script src='https://unpkg.com/react-dom@16.0.0-rc.2/umd/react-dom.development.js'></script>
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js'></script>
+</head>
+<body>
+	<div id='app'></div>
+	<script type="text/babel">
+
+		class HobbyList extends React.Component {
+			render() {
+				const hobbies = ['Sleeping', 'Eating', 'Meowing'];
+				return (
+					<ul>
+					 	{hobbies.map((h, i) => {
+					 		return <li key={i} style={{fontSize: '1.5em'}}>{h}</li>
+					 	})} 	
+					</ul>
+				)
+			}
+		}
+		
+		class Pet extends React.Component {
+			render() {
+				return (
+					<div>
+						<h2>Boxie</h2>
+						<img src='https://cdn.pixabay.com/photo/2015/11/16/14/43/cat-1045782_960_720.jpg' alt='boxie the cat'/>
+						<h5 style={{fontSize: '1.5em', margin: '2px'}}>Hobbies</h5>
+						<HobbyList />
+					</div>
+				)
+			}
+
+		}
+		
+	// specify what to render and where to render
+	ReactDOM.render(<Pet/>, document.getElementById('app'));	
+
+	</script>
+</body>
+</html>
